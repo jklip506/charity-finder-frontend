@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Home } from './Home';
 import { Profile } from './Profile';
+import { SpaceComponent } from './spaces/SpaceComponent'
+import { Spaces } from './spaces/Spaces';
+import { DataService } from '../services/DataService';
+import { threadId } from 'worker_threads';
 
 
 interface AppState {
@@ -17,6 +21,7 @@ export class App extends React.Component<{}, AppState> {
 
   //Passes to Login.tsx
   private authService: AuthService = new AuthService();
+  private dataService: DataService = new DataService();
 
   constructor(props: any) {
     super(props)
@@ -45,6 +50,7 @@ export class App extends React.Component<{}, AppState> {
               <Route path='/login' element= {<Login authService={this.authService} setUser={this.setUser} />} >
               </Route>
               <Route path='/profile' element={<Profile authService={this.authService} user={this.state.user}/>} />
+              <Route path = '/charity' element = {<Spaces dataService={this.dataService}/>} />
             </Routes>
           </Fragment>
         </BrowserRouter>
