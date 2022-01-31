@@ -11,6 +11,7 @@ import { SpaceComponent } from './spaces/SpaceComponent'
 import { Spaces } from './spaces/Spaces';
 import { DataService } from '../services/DataService';
 import { threadId } from 'worker_threads';
+import { CreateSpace } from './spaces/CreateSpace';
 
 
 interface AppState {
@@ -32,10 +33,12 @@ export class App extends React.Component<{}, AppState> {
   }
 
   //must be binded or undefined. Is binded in constructor
-  private setUser(user: User) {
+  private async setUser(user: User) {
     this.setState({
       user: user
     })
+
+    await this.authService.getAWSTemporaryCreds(user.cognitoUser);
     console.log('Setting user: ' + user);
   }
 
@@ -51,6 +54,7 @@ export class App extends React.Component<{}, AppState> {
               </Route>
               <Route path='/profile' element={<Profile authService={this.authService} user={this.state.user}/>} />
               <Route path = '/charity' element = {<Spaces dataService={this.dataService}/>} />
+              <Route path = '/createSpace' element = {<CreateSpace dataService={this.dataService}/>}/>
             </Routes>
           </Fragment>
         </BrowserRouter>

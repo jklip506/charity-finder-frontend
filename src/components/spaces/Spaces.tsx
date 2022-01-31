@@ -3,6 +3,7 @@ import { Space } from '../../model/Model'
 import { DataService } from '../../services/DataService';
 import { SpaceComponent} from './SpaceComponent';
 import { ConfirmModalComponent } from './ConfirmModalComponent';
+import { Link } from 'react-router-dom';
 
 interface SpacesState {
 
@@ -61,6 +62,7 @@ export class Spaces extends React.Component<SpacesProps, SpacesState> {
                 <SpaceComponent
                     location = {space.location}
                     name= {space.name}
+                    photoURL = {space.photoURL}
                     spaceId= {space.spaceId}
                     reserveSpace = {this.reserveSpace}
                 />
@@ -79,6 +81,7 @@ export class Spaces extends React.Component<SpacesProps, SpacesState> {
     render() {
         return<div>
             <h2>Welcome to the charities page</h2>
+            <Link to='/createSpace'>Create Space</Link><br /><br />
             {this.renderSpaces()}
             <ConfirmModalComponent close={this.closeModal} content={this.state.modalContent} show={this.state.showModal}/>
         </div>
